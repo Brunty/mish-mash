@@ -1,6 +1,7 @@
 <?php namespace Brunty\Controllers;
 
 use Brunty\App;
+use Brunty\FibonacciGenerator;
 
 /**
  * Class FibonacciController
@@ -8,17 +9,23 @@ use Brunty\App;
  */
 class FibonacciController extends BaseController
 {
+
     /**
      * @var App
      */
     private $app;
+    /**
+     * @var FibonacciGenerator
+     */
+    private $generator;
 
     /**
      * @param App $container
      */
-    public function __construct(App $container)
+    public function __construct(App $container, FibonacciGenerator $generator)
     {
         $this->app = $container;
+        $this->generator = $generator;
     }
 
     /**
@@ -26,21 +33,15 @@ class FibonacciController extends BaseController
      */
     public function doAwesomeThings()
     {
-        if( ! $this->app['redis']->get('sequence'))
-        {
-            echo "Calculating...";
-            // calculate a fibonacci sequence
-            $numbers = 10000000;
-            $result = 0;
-            for($i = 0; $i < $numbers; $i++) {
-                if( ! $result = $this->app['redis']->get("fibonacci:{$i}")) {
-                    $result += $i;
-                    $this->app['redis']->set("fibonacci:{$i}", $result);
-                }
-            }
-            $this->app['redis']->set('sequence', $result);
+        //$this->app['redis']->flushdb(); // flush the redis db so it will always re-calculate
+        $length = isset($_GET['length']) ? (int)$_GET['length'] : 100; // todo: filter inputs properly
+
+        $key = "fibonacci.sequence.{$length}";
+        if ( ! $result = $this->app['redis']->get($key)) {
+            $result = $this->generator->generate($length);
+            $this->app['redis']->set($key, $result);
         }
 
-        echo $this->app['redis']->get('sequence');
+        echo $result;
     }
 }

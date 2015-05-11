@@ -2,6 +2,7 @@
 
 use Brunty\Controllers\FibonacciController;
 use Brunty\Controllers\HomeController;
+use Brunty\FibonacciGenerator;
 
 // work out a way of dispatching to a controller maybe?
 $app['router']->respond(
@@ -22,6 +23,6 @@ $app['router']->respond(
     'GET',
     '/fibonacci',
     function () use ($app) {
-        return (new FibonacciController($app))->doAwesomeThings();
+        return (new FibonacciController($app, new FibonacciGenerator($app['redis'])))->doAwesomeThings();
     }
 );
