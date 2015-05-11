@@ -1,7 +1,7 @@
 <?php namespace Brunty;
 
 /**
- * Class TestClass
+ * Class Foog
  * @package Brunty
  */
 class Foo
