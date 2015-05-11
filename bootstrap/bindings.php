@@ -6,7 +6,7 @@ use Predis\Client as Redis;
 $app = new App;
 
 /**
- * TODO: Maybe refactor this so it doesn't feel so hacky
+ * TODO: Maybe refactor this so it doesn't feel so hacky with the way multiple config files are included
  *
  * @param $c
  *
@@ -33,18 +33,24 @@ $app['router'] = function ($c) {
     return new Klein();
 };
 
+/**
+ * @param $c
+ *
+ * @return Twig_Environment
+ */
 $app['view'] = function ($c) {
     $loader = new Twig_Loader_Filesystem('../resources/views');
     $twig = new Twig_Environment(
         $loader,
         array(
-            'cache'       => '../storage/views',
+            'cache'       => '../storage/cache/views',
             'auto_reload' => true
         )
     );
 
     return $twig;
 };
+
 /**
  * Bind our Redis client to the container
  *
