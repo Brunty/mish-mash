@@ -2,29 +2,40 @@
 
 use Brunty\App;
 
+/**
+ * Class HomeController
+ * @package Brunty\Controllers
+ */
 class HomeController
 {
 
     /**
      * @var App
      */
-    private $container;
+    private $app;
 
+    /**
+     * @param App $container
+     */
     public function __construct(App $container)
     {
 
-        $this->container = $container;
+        $this->app = $container;
     }
 
+    /**
+     * @return string
+     */
     public function index()
     {
-        return "Index page!";
+        return $this->app['view']->render('welcome/welcome.twig', ['message'    =>  'Index page']);
     }
 
+    /**
+     * @return string
+     */
     public function helloWorld() {
-        $this->container['redis']->set('foo', 'bar');
-
-        return "Hello world! " . $this->container['redis']->get('foo');
-
+        $this->app['redis']->set('foo', 'bar');
+        return "Hello world! " . $this->app['redis']->get('foo');
     }
 }

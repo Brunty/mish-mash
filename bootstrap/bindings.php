@@ -5,10 +5,53 @@ use Predis\Client as Redis;
 
 $app = new App;
 
+/**
+ * TODO: Maybe refactor this so it doesn't feel so hacky
+ *
+ * @param $c
+ *
+ * @return array
+ */
+$app['config'] = function ($c) {
+    $configArray = [
+        'app'      => include "../config/app.php",
+        'services' => include "../config/services.php",
+        'redis'    => include "../config/redis.php"
+    ];
+
+    return $configArray;
+};
+
+/**
+ * Bind our router to the container
+ *
+ * @param $c
+ *
+ * @return Klein
+ */
 $app['router'] = function ($c) {
     return new Klein();
 };
 
-$app['redis'] = function($c) {
-    return new Redis();
+$app['view'] = function ($c) {
+    $loader = new Twig_Loader_Filesystem('../resources/views');
+    $twig = new Twig_Environment(
+        $loader,
+        array(
+            'cache'       => '../storage/views',
+            'auto_reload' => true
+        )
+    );
+
+    return $twig;
+};
+/**
+ * Bind our Redis client to the container
+ *
+ * @param $c
+ *
+ * @return Redis
+ */
+$app['redis'] = function ($c) {
+    return new Redis($c['config']['redis']);
 };
