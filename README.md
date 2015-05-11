@@ -13,3 +13,6 @@ Hosts file:
 * Mysql 5.6
 * nginx
 * Redis 2.8.4
+
+
+Paths are kinda hard coded. Deal with it.
