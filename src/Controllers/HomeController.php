@@ -6,9 +6,8 @@ use Brunty\App;
  * Class HomeController
  * @package Brunty\Controllers
  */
-class HomeController
+class HomeController extends BaseController
 {
-
     /**
      * @var App
      */
@@ -19,10 +18,8 @@ class HomeController
      */
     public function __construct(App $container)
     {
-
         $this->app = $container;
     }
-
     /**
      * @return string
      */
