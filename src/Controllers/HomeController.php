@@ -18,8 +18,13 @@ class HomeController
 
     public function index()
     {
+        return "Index page!";
+    }
+
+    public function helloWorld() {
         $this->container['redis']->set('foo', 'bar');
 
         return "Hello world! " . $this->container['redis']->get('foo');
+
     }
 }
