@@ -1,5 +1,7 @@
 Vagrant box setup with puphpet for Tech Nottingham Redis Talk.
 
+Thrown together quickly over a lunchbreak.
+
 Hosts file:
 `192.168.56.103 local.redis www.local.redis`
 
