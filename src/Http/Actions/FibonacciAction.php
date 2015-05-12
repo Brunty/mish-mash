@@ -25,10 +25,10 @@ class FibonacciAction extends BaseAction
      * @param FibonacciGenerator $generator
      *
      */
-    public function __construct(Client $cache, FibonacciGenerator $generator)
+    public function __construct(App $app, FibonacciGenerator $generator)
     {
         $this->generator = $generator;
-        $this->cache = $cache;
+        $this->app = $app;
     }
 
     /**
@@ -36,15 +36,16 @@ class FibonacciAction extends BaseAction
      */
     public function doAwesomeThings()
     {
-        if(isset($_GET['flush'])) $this->cache->flushdb(); // flush the redis db so it will always re-calculate
+        if(isset($_GET['flush'])) $this->app['redis']->flushdb(); // flush the redis db so it will always re-calculate
         $length = isset($_GET['length']) ? (int)$_GET['length'] : 100; // todo: filter inputs properly
 
         $key = "fibonacci.sequence.{$length}";
-        if ( ! $result = $this->cache->get($key)) {
+        if ( ! $result = $this->app['redis']->get($key)) {
             $result = $this->generator->generate($length);
-            $this->cache->set($key, $result);
+            $this->app['event']->emit('fibonacci.sequence.generated', [$result]);
+            $this->app['redis']->set($key, $result);
+            $this->app['event']->emit('fibonacci.sequence.cached', [$result]);
         }
-
         echo $result;
     }
 }

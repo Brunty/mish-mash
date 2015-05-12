@@ -23,6 +23,6 @@ $app['router']->respond(
     'GET',
     '/fibonacci',
     function () use ($app) {
-        return (new FibonacciAction($app['redis'], new FibonacciGenerator($app['redis'])))->doAwesomeThings();
+        return (new FibonacciAction($app, new FibonacciGenerator($app['redis'])))->doAwesomeThings();
     }
 );

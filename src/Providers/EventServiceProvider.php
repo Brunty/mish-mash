@@ -31,5 +31,19 @@ class EventServiceProvider implements ProviderInterface
                 echo "index was viewed";
             }
         );
+
+        $app['event']->on(
+            'fibonacci.sequence.generated',
+            function ($result) {
+                echo "Sequence viewed: {$result} <br />";
+            }
+        );
+
+        $app['event']->on(
+            'fibonacci.sequence.cached',
+            function ($result) {
+                echo "Sequence cached: {$result} <br />";
+            }
+        );
     }
 }
