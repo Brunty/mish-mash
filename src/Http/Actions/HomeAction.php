@@ -25,6 +25,7 @@ class HomeAction extends BaseAction
      */
     public function index()
     {
+        $this->app['event']->emit('index.viewed');
         return $this->app['view']->render('welcome/welcome.twig', ['message'    =>  'Index page']);
     }
 

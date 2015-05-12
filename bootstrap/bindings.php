@@ -1,5 +1,6 @@
 <?php
 use Brunty\App;
+use Evenement\EventEmitter;
 use Klein\Klein;
 use Predis\Client as Redis;
 
@@ -52,12 +53,12 @@ $app['view'] = function ($c) {
 };
 
 /**
- * Bind our Redis client to the container
- *
+* Bind our Redis client to the container
+*
  * @param $c
- *
+*
  * @return Redis
- */
+*/
 $app['redis'] = function ($c) {
     return new Redis($c['config']['redis']);
 };

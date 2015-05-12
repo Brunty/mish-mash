@@ -16,3 +16,5 @@ Hosts file:
 
 
 Paths are kinda hard coded. Deal with it.
+
+Classes aren't adapted or abstracted from concrete implementations. Deal with it.
