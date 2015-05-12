@@ -8,6 +8,10 @@ use Pimple\Container;
  */
 class App extends Container
 {
+
+    /**
+     * Run the bindings for our service providers in our system
+     */
     public function bindServiceProviders()
     {
         foreach($this['config']['app']['providers'] as $providerClassName) {
@@ -16,6 +20,9 @@ class App extends Container
         }
     }
 
+    /**
+     * Run the register methods on the service providers in our system
+     */
     public function registerServiceProviders()
     {
         foreach($this['config']['app']['providers'] as $providerClassName) {

@@ -2,18 +2,34 @@
 
 use Evenement\EventEmitter;
 
-class EventServiceProvider implements ProviderInterface {
+/**
+ * Class EventServiceProvider
+ * @package Brunty\Providers
+ */
+class EventServiceProvider implements ProviderInterface
+{
 
-    public function bind($app) {
+    /**
+     * @param $app
+     */
+    public function bind($app)
+    {
         $app['event'] = function ($c) {
             return new EventEmitter();
         };
     }
 
+
+    /**
+     * @param $app
+     */
     public function register($app)
     {
-        $app['event']->on('index.viewed', function() {
-            echo "index was viewed";
-        });
+        $app['event']->on(
+            'index.viewed',
+            function () {
+                echo "index was viewed";
+            }
+        );
     }
 }
