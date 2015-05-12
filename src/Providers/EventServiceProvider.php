@@ -22,6 +22,8 @@ class EventServiceProvider implements ProviderInterface
 
     /**
      * @param $app
+     *
+     * @return mixed|void
      */
     public function register($app)
     {
