@@ -1,6 +1,5 @@
 <?php
 use Brunty\App;
-use Evenement\EventEmitter;
 use Klein\Klein;
 use Predis\Client as Redis;
 
@@ -14,13 +13,11 @@ $app = new App;
  * @return array
  */
 $app['config'] = function ($c) {
-    $configArray = [
+    return [
         'app'      => include "../config/app.php",
         'services' => include "../config/services.php",
         'redis'    => include "../config/redis.php"
     ];
-
-    return $configArray;
 };
 
 /**
