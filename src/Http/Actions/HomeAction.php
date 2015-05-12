@@ -1,4 +1,4 @@
-<?php namespace Brunty\Controllers;
+<?php namespace Brunty\Http\Actions;
 
 use Brunty\App;
 
@@ -6,7 +6,7 @@ use Brunty\App;
  * Class HomeController
  * @package Brunty\Controllers
  */
-class HomeController extends BaseController
+class HomeAction extends BaseAction
 {
     /**
      * @var App

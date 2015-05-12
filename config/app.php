@@ -1,6 +1,6 @@
 <?php
 return [
     'site'  =>  [
-        'name'  =>  'Tech Nottingham Redis talk'
+        'name'  =>  'Tech Nottingham Redis'
     ]
 ];
